@@ -20,6 +20,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<style type="text/tailwindcss">
 		@theme {
 			--color-white: #ffffff;
@@ -27,6 +29,7 @@
 			--color-black-60: rgba(0, 0, 0, 0.6);
 			--color-black-56: rgba(0, 0, 0, 0.56);
 			--color-black-50: rgba(0, 0, 0, 0.50);
+			--color-black-20: rgba(0, 0, 0, 0.20);
 			--color-light-gradient: linear-gradient(180deg, #0065CA 0%, #37B6FF 100%);
 			--color-pink: #FF538F;
 			--color-dark-blue: #041421;
@@ -70,7 +73,7 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'iggs-landing' ); ?></a>
 
-	<header id="masthead" class="site-header absolute top-0 left-0 w-full z-[999] transition-all duration-500 bg-transparent">
+	<header id="masthead" class="site-header absolute top-0 left-0 w-full z-[999] transition-all duration-500 bg-transparent border-transparent border-b border-solid">
 	<div class="flex justify-between items-center py-4 container mx-auto">
 		<div class="logotype">
 			<?php the_custom_logo(); ?>
@@ -108,17 +111,17 @@
 
 			function handleScroll() {
 				const headerHeight = header.offsetHeight;
-				const offset = headerHeight + 50;
+				const offset = headerHeight + 1;
 				if (window.scrollY > offset) {
 					if (!stickyApplied) {
-						header.classList.add('fixed', 'top-0', 'bg-dark-blue-90');
-						header.classList.remove('absolute', 'bg-transparent');
+						header.classList.add('fixed', 'top-0', 'bg-dark-blue-90', 'border-black-20');
+						header.classList.remove('absolute', 'bg-transparent', 'border-transparent');
 						stickyApplied = true;
 					}
 				} else {
 					if (stickyApplied) {
-						header.classList.remove('fixed', 'top-0', 'bg-dark-blue-90');
-						header.classList.add('absolute', 'bg-transparent');
+						header.classList.remove('fixed', 'top-0', 'bg-dark-blue-90', 'border-black-20',);
+						header.classList.add('absolute', 'bg-transparent', 'border-transparent');
 						stickyApplied = false;
 					}
 				}
