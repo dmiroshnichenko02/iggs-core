@@ -22,7 +22,6 @@ $recommend_background = $args['recommend_background'] ?? '';
                     .recommend .text-cont {
                         color: #fff;
                     }
-
                     .text-cont {
                         font-family: "Archivo";
                         font-size: 18px;
