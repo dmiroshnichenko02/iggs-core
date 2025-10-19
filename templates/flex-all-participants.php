@@ -8,18 +8,21 @@ $image = $args['image'] ?? '';
 $reg_button = $args['reg_button'] ?? [];
 $see_button = $args['see_button'] ?? [];
 ?>
-<section class="mb-16 py-16 bg-white text-center">
+<section class="py-[90px]">
     <div class="container mx-auto px-4">
-        <h2 class="text-2xl md:text-4xl font-bold mb-2"><?= esc_html($title) ?></h2>
-        <?php if ($count): ?><div class="text-xl mb-4 font-medium text-gray-700"><?= esc_html($count) ?></div><?php endif; ?>
-        <?php if ($image): ?><img src="<?= esc_url($image) ?>" alt="Participants" class="mx-auto h-40 object-contain mb-4" /><?php endif; ?>
-        <div class="flex flex-col md:flex-row justify-center mt-6 gap-4">
+        <div class="flex justify-between items-end">
+            <h2 class="text-h2 uppercase leading-h2 font-light font-archivo text-black max-w-[660px]"><?= esc_html($title) ?></h2>
+            <?php if ($count): ?><div class="text-[128px] leading-[128px] font-light font-archivo text-black count"><?= esc_html($count) ?></div><?php endif; ?>
+        </div>
+        <?php if ($image): ?><img src="<?= esc_url($image) ?>" alt="Participants" class="mx-auto mt-[58px] h-auto w-full object-contain mb-[48px]" /><?php endif; ?>
+        <div class="flex mb-[73px] gap-3">
             <?php if (!empty($reg_button['title']) && !empty($reg_button['link'])): ?>
-                <a class="inline-block bg-green-600 text-white px-6 py-2 rounded hover:bg-green-800 transition" href="<?= esc_url($reg_button['link']) ?>"><?= esc_html($reg_button['title']) ?></a>
+                <a class="bg-[linear-gradient(90deg,_#0065CA_0%,_#37B6FF_100%)] inline-block text-white font-archivo uppercase text-medium leading-medium px-[53px] py-[22px] transition" href="<?= esc_url($reg_button['link']) ?>"><?= esc_html($reg_button['title']) ?></a>
             <?php endif; ?>
             <?php if (!empty($see_button['title']) && !empty($see_button['link'])): ?>
-                <a class="inline-block border border-gray-400 text-gray-800 px-6 py-2 rounded hover:bg-gray-200 transition" href="<?= esc_url($see_button['link']) ?>"><?= esc_html($see_button['title']) ?></a>
+                <a class="font-archivo uppercase border-[#E5E5E5] border border-solid px-[53px] py-[22px] text-black text-base leading-[16px] transition hover:text-white hover:border-white hover:bg-dark-blue" href="<?= esc_url($see_button['link']) ?>"><?= esc_html($see_button['title']) ?></a>
             <?php endif; ?>
         </div>
     </div>
+    <div class="w-[calc(100%-6%)] mx-auto h-[1px] bg-[#DDDDDD]"></div>
 </section>

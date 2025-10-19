@@ -30,8 +30,8 @@ $background = $args['background'] ?? '';
     <div class="flex items-end flex-col max-w-[448px] gap-10">
         <?php foreach($right_column as $col): ?>
             <div class="border-b border-solid border-white w-full flex flex-col justify-end items-start">
-                <div class="font-archivo text-white text-h6 leading-h6 font-light"><?= wp_kses_post($col['title']) ?></div>
-                <?php if($col['count'] != ''): ?><div class="font-archivo text-white text-[96px] leading-[96px] font-light mt-2"><?= esc_html($col['count'] ?? '') ?></div>
+                <div class="font-archivo text-white text-h6 leading-h6 font-light mb-2"><?= wp_kses_post($col['title']) ?></div>
+                <?php if($col['count'] != ''): ?><div class="font-archivo text-white text-[96px] leading-[96px] font-light"><?= esc_html($col['count'] ?? '') ?></div>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
