@@ -165,3 +165,85 @@ require get_template_directory() . '/pt-tx/partials/activity.php';
 if( function_exists('acf_add_options_page') ) {
 	acf_add_options_page('Options');
 }
+
+add_action( 'wpcf7_init', function() {
+    if ( function_exists( 'wpcf7_add_form_tag' ) ) {
+        wpcf7_add_form_tag(
+            array( 'select_post_types', 'select_post_types*' ),
+            'cf7_select_post_types_handler',
+            array( 'name-attr' => true )
+        );
+    }
+} );
+
+
+function cf7_select_post_types_handler( $tag ) {
+    if ( empty( $tag->name ) ) {
+        return '';
+    }
+
+    $name = $tag->name;
+    $is_required = $tag->is_required() ? 'required aria-required="true"' : '';
+    $classes = '';
+    if ( method_exists( $tag, 'get_class_option' ) ) {
+        $class_options = $tag->get_class_option();
+        if ( is_array( $class_options ) && ! empty( $class_options ) ) {
+            $classes = implode( ' ', $class_options );
+        }
+    } else {
+        $opts = $tag->options;
+        foreach ( $opts as $o ) {
+            if ( strpos( $o, 'class:' ) === 0 ) {
+                $classes .= ' ' . trim( substr( $o, strlen('class:') ) );
+            }
+        }
+    }
+
+    $post_type = 'post';
+    $show_title = false;
+    if ( ! empty( $tag->options ) && is_array( $tag->options ) ) {
+        foreach ( $tag->options as $opt ) {
+            if ( strpos( $opt, 'post_type:' ) === 0 ) {
+                $post_type = trim( substr( $opt, strlen('post_type:') ) );
+            }
+            if ( strpos( $opt, 'show_title:' ) === 0 ) {
+                $show_title = (bool) trim( substr( $opt, strlen('show_title:') ) );
+            }
+        }
+    }
+
+    $posts = get_posts( array(
+        'post_type'      => $post_type,
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'orderby'        => 'title',
+        'order'          => 'ASC',
+    ) );
+
+    $options_html = '';
+    if ( empty( $posts ) ) {
+        $options_html .= '<option value="">-- No items --</option>';
+    } else {
+        foreach ( $posts as $p ) {
+            $value = esc_attr( $p->post_name );
+            $label = $show_title ? esc_html( $p->post_title ) : esc_html( $p->post_title );
+            $options_html .= sprintf( '<option value="%s">%s</option>', $value, $label );
+        }
+    }
+
+    $wpcf7_classes = 'wpcf7-form-control wpcf7-select';
+    if ( $tag->is_required() ) {
+        $wpcf7_classes .= ' wpcf7-validates-as-required';
+    }
+
+    $select = sprintf(
+        '<select name="%s" class="%s %s" %s>%s</select>',
+        esc_attr( $name ),
+        esc_attr( $wpcf7_classes ),
+        esc_attr( $classes ),
+        $is_required,
+        $options_html
+    );
+
+    return $select;
+}

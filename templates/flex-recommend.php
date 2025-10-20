@@ -99,7 +99,6 @@ $mask_image = $args['mask_image'] ?? '';
                             border-top: 1px solid rgba(255,255,255,0.1);
                         }
                         @media (max-width: 1024px) {
-                            /* On 1024px and less (2 columns), В третьем чайле убираем бордер */
                             .text-content:nth-child(3) {
                                 border-top: none;
                             }

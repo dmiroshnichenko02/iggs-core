@@ -22,6 +22,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+	
 	<style type="text/tailwindcss">
 		@theme {
 			--color-white: #ffffff;
@@ -78,14 +81,31 @@
 		<div class="logotype">
 			<?php the_custom_logo(); ?>
 		</div>
-
+		<style>
+			.header-nav li {
+				position: relative;
+			}
+			.header-nav li::after {
+				position: absolute;
+				content: "";
+				width: 0%;
+				height: 2px;
+				background: #fff;
+				bottom: -2px;
+				left: 0px;
+				transition: all 0.3s ease-in-out;
+			}
+			.header-nav li:hover::after {
+				width: 100%;
+			}
+		</style>
 		<nav class="nav">
 			<?php
 			wp_nav_menu(
 				array(
 					'theme_location' => 'menu-1',
 					'menu_id'        => 'primary-menu',
-					'menu_class'     => 'flex gap-4 text-white font-archivo font-normal text-base leading-base uppercase',
+					'menu_class'     => 'flex gap-4 header-nav text-white font-archivo font-normal text-base leading-base uppercase',
 					'fallback_cb'    => false,
 				)
 			);

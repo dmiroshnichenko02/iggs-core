@@ -63,7 +63,6 @@ $recommend_background = $args['recommend_background'] ?? '';
                         <div class="mt-auto px-[36px]">
                             <div class="w-full h-[1px] mb-[30px] <?= $is_recommend ? 'bg-[rgba(255,255,255,0.1)]' : 'bg-[#e5e5e5]' ?>"></div>
                             <?php
-                            // Use post slug as anchor for more robust linking
                             $slug = get_post_field('post_name', get_the_ID());
                             $buy_ticket_href = '#' . esc_attr($slug);
                             ?>

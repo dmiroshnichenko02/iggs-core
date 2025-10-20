@@ -63,7 +63,7 @@ $button = $args['button'] ?? [];
         </div>
         <?php if (!empty($button['text']) && !empty($button['link'])): ?>
             <div class="mt-[47px] container mx-auto">
-                <a class="bg-[linear-gradient(90deg,_#0065CA_0%,_#37B6FF_100%)] text-white px-6 py-2 transition" href="<?= esc_url($button['link']) ?>"><?= esc_html($button['text']) ?></a>
+                <a class="bg-[linear-gradient(90deg,_#0065CA_0%,_#37B6FF_100%)] text-white px-[40px] py-4 transition" href="<?= esc_url($button['link']) ?>"><?= esc_html($button['text']) ?></a>
             </div>
         <?php endif; ?>
         
@@ -114,7 +114,6 @@ $button = $args['button'] ?? [];
         if (!maskWrap) return;
         let leftMask = maskWrap.querySelector('.sponsors-gradient-mask-left');
         let rightMask = maskWrap.querySelector('.sponsors-gradient-mask-right');
-        // Количество видимых считается как slidesPerView или максимум - slides.length (если slidesPerView:auto)
         let slidesPerView = swiper.params.slidesPerView === 'auto' ?  Math.floor(swiper.el.offsetWidth / (swiper.slides[0]?.offsetWidth || 1)) : swiper.params.slidesPerView;
         let slidesCount = swiper.slides.length;
         if (slidesCount <= slidesPerView) {
