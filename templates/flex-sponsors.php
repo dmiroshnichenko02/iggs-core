@@ -4,7 +4,7 @@
  */
 $button = $args['button'] ?? [];
 ?>
-<section class="pt-[52px] pb-[97px] overflow-hidden">
+<section class=" pt-0 lg:pt-[52px] pb-10 lg:pb-[97px] overflow-hidden">
    <div class="">
         <div class="flex flex-col">
         <?php
@@ -24,9 +24,9 @@ $button = $args['button'] ?? [];
                     'posts_per_page' => -1,
                 ]);
                 if ($q->have_posts()) : ?>
-                    <div class="border-b border-solid border-[#DDDDDD] py-[56px]">
-                        <div class="flex flex-row items-center gap-[100px] container mx-auto">
-                        <div class="max-w-[363px] min-w-[363px] text-high leading-high text-black font-archivo font-light">
+                    <div class="border-b border-solid border-[#DDDDDD] py-10 lg:py-[56px]">
+                        <div class="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-[100px] container mx-auto">
+                        <div class="w-full md:max-w-[363px] md:min-w-[363px] text-high leading-high text-black font-archivo font-light">
                             Among Previous & Current <span><?= esc_html($term->name); ?></span>
                         </div>
                         <div class="flex-1 overflow-hidden w-full relative sponsors-slider-mask-wrap">
@@ -62,8 +62,16 @@ $button = $args['button'] ?? [];
         ?>
         </div>
         <?php if (!empty($button['text']) && !empty($button['link'])): ?>
-            <div class="mt-[47px] container mx-auto">
-                <a class="bg-[linear-gradient(90deg,_#0065CA_0%,_#37B6FF_100%)] text-white px-[40px] py-4 transition" href="<?= esc_url($button['link']) ?>"><?= esc_html($button['text']) ?></a>
+            <div class="mt-[25px] lg:mt-[47px] container mx-auto">
+                <a class="group relative px-[40px] py-4 md:py-[22px] font-light uppercase text-base md:text-medium leading-base md:leading-medium font-archivo text-white bg-gradient-to-r from-[#0065CA] to-[#37B6FF] transform transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl overflow-hidden w-full md:w-auto flex justify-center items-center md:inline-block" href="<?= esc_url($button['link']) ?>">
+                  <?= esc_html($button['text']) ?>
+                  <span
+                    aria-hidden="true"
+                    class="absolute top-0 left-0 w-full h-full -translate-x-48 transform 
+                        bg-gradient-to-r from-white/40 via-white/20 to-white/0
+                        opacity-0 transition-all duration-800 ease-in-out
+                        group-hover:translate-x-56 group-hover:opacity-100 pointer-events-none"></span>
+              </a>
             </div>
         <?php endif; ?>
         

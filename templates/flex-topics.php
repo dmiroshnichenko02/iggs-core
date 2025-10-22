@@ -6,9 +6,9 @@ $title = $args['title'] ?? '';
 $reg_button = $args['reg_button'] ?? [];
 ?>
 
-<section class="pt-[90px]">
+<section id="topics" class="pt-10 lg:pt-[90px]">
     <div class="container mx-auto">
-        <h2 class="text-h2 uppercase leading-h2 font-light font-archivo text-black max-w-[678px] mb-[42px]"><?= esc_html($title) ?></h2>
+        <h2 class="uppercase text-[32px] leading-[32px] md:text-[40px] md:leading-[40px] lg:text-h2 lg:leading-h2 font-light font-archivo text-black max-w-[678px] mb-[42px]"><?= esc_html($title) ?></h2>
         <div class="topics grid md:grid-cols-1 lg:grid-cols-2 gap-8">
         <?php
         $args_topics = array(
@@ -32,13 +32,13 @@ $reg_button = $args['reg_button'] ?? [];
                     <img 
                         src="<?= esc_url($thumbnail_url); ?>" 
                         alt="<?= esc_attr($topic_title); ?>" 
-                        class="mb-[28px] w-full h-[345px] object-cover"
+                        class="mb-[28px] w-full h-[250px] md:h-[345px] object-cover"
                     >
                 <?php endif; ?>
 
-                <div class=" px-[28px] pb-[52px]">
+                <div class="px-[15px] lg:px-[28px] pb-5 lg:pb-[52px]">
                     <?php if (!empty($topic_title)): ?>
-                        <h3 class="font-archivo font-light text-h3 leading-h3 text-black mb-5 uppercase"><?= esc_html($topic_title); ?></h3>
+                        <h3 class="font-archivo font-light text-[20px] leading-[20px] md:text-[30px] md:leading-[30px] lg:text-h3 lg:leading-h3 text-black mb-5 uppercase"><?= esc_html($topic_title); ?></h3>
                     <?php endif; ?>
                    <div class="li-content pl-5">
                    <?php
@@ -61,11 +61,19 @@ $reg_button = $args['reg_button'] ?? [];
 
         <div class="flex mt-[49px] mb-[90px] gap-3">
             <?php if (!empty($reg_button['title']) && !empty($reg_button['link'])): ?>
-                <a class="bg-[linear-gradient(90deg,_#0065CA_0%,_#37B6FF_100%)] inline-block uppercase text-white font-archivo text-medium leading-medium px-[53px] py-[22px] transition" href="<?= esc_url($reg_button['link']) ?>"><?= esc_html($reg_button['title']) ?></a>
+                <a class="group relative flex justify-center items-center lg:inline-block w-full md:w-auto px-[53px] py-[22px] font-light uppercase text-medium leading-medium font-archivo text-white bg-gradient-to-r from-[#0065CA] to-[#37B6FF] transform transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl overflow-hidden" href="#form-reg">
+                    <?= esc_html($reg_button['title']) ?>
+                    <span
+                    aria-hidden="true"
+                    class="absolute top-0 left-0 w-full h-full -translate-x-48 transform 
+                        bg-gradient-to-r from-white/40 via-white/20 to-white/0
+                        opacity-0 transition-all duration-800 ease-in-out
+                        group-hover:translate-x-56 group-hover:opacity-100 pointer-events-none"></span>
+                </a>
             <?php endif; ?>
         </div>
     </div>
-    <div class="w-[calc(100%-6%)] mx-auto h-[1px] bg-[#DDDDDD] mt-[87px]"></div>
+    <div class="w-[calc(100%-6%)] mx-auto h-[1px] bg-[#DDDDDD] mt-10 lg:mt-[87px]"></div>
 </section>
 
 <style>

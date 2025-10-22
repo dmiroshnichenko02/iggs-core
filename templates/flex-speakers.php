@@ -6,7 +6,7 @@ $title = $args['title'] ?? '';
 $reg_button = $args['reg_button'] ?? [];
 $see_button = $args['see_button'] ?? [];
 ?>
-<section>
+<section id="speakers">
     <div class="container mx-auto">
         <?php
         $args_speakers = array(
@@ -32,11 +32,11 @@ $see_button = $args['see_button'] ?? [];
             }
         }
         ?>
-        <div class="flex justify-between items-end">
-            <h2 class="text-h2 uppercase leading-h2 font-light font-archivo text-black max-w-[678px]"><?= esc_html($title) ?></h2>
-            <?php if ($count): ?><div class="text-[128px] leading-[128px] font-light font-archivo text-black count"><?= esc_html($count) ?></div><?php endif; ?>
+        <div class="flex flex-col lg:flex-row gap-5 justify-between lg:items-end">
+            <h2 class="uppercase text-[32px] leading-[32px] md:text-[40px] md:leading-[40px] lg:text-h2 lg:leading-h2 font-light font-archivo text-black max-w-[678px]"><?= esc_html($title) ?></h2>
+            <?php if ($count): ?><div class="text-[64px] leading-[64px] lg:text-[128px] lg:leading-[128px] font-light font-archivo text-black count"><?= esc_html($count) ?></div><?php endif; ?>
         </div>
-        <div class="post-type mb-5 mt-[51px]" style="position: relative;">
+        <div class="post-type mb-5 mt-[30px] lg:mt-[51px]" style="position: relative;">
             <?php if ($speakers_query->have_posts()): ?>
                 <div class="speakers-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-[18px] gap-y-[30px] overflow-hidden transition-all duration-500 relative" style="max-height: none;">
                     <?php
@@ -91,16 +91,24 @@ $see_button = $args['see_button'] ?? [];
                 <div class="text-gray-500">No speakers found.</div>
             <?php endif; ?>
         </div>
-        <div class="flex mb-[73px] gap-3">
+        <div class="flex flex-col-reverse lg:flex-row mb-10 lg:mb-[73px] gap-3">
             <?php if (!empty($reg_button['title']) && !empty($reg_button['link'])): ?>
-                <a class="bg-[linear-gradient(90deg,_#0065CA_0%,_#37B6FF_100%)] inline-block uppercase text-white font-archivo text-medium leading-medium px-[53px] py-[22px] transition" href="<?= esc_url($reg_button['link']) ?>"><?= esc_html($reg_button['title']) ?></a>
+                <a class="group relative flex justify-center items-center lg:inline-block px-[53px] py-[22px] font-light uppercase text-medium leading-medium font-archivo text-white bg-gradient-to-r from-[#0065CA] to-[#37B6FF] transform transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl overflow-hidden" href="#form-reg">
+                    <?= esc_html($reg_button['title']) ?>
+                    <span
+                    aria-hidden="true"
+                    class="absolute top-0 left-0 w-full h-full -translate-x-48 transform 
+                        bg-gradient-to-r from-white/40 via-white/20 to-white/0
+                        opacity-0 transition-all duration-800 ease-in-out
+                        group-hover:translate-x-56 group-hover:opacity-100 pointer-events-none"></span>
+                </a>
             <?php endif; ?>
             <?php if (!empty($see_button['title']) && !empty($see_button['link'])): ?>
-                <a class="see-all font-archivo uppercase border-[#E5E5E5] border border-solid px-[53px] py-[22px] text-black text-base leading-[16px] transition hover:text-white hover:border-white hover:bg-dark-blue" href="<?= esc_url($see_button['link']) ?>"><?= esc_html($see_button['title']) ?></a>
+                <a class="see-all font-archivo uppercase border-[#E5E5E5] border border-solid flex justify-center items-center lg:inline-block px-[53px] py-[22px] text-black text-base leading-[16px] transition hover:text-white hover:border-white hover:bg-dark-blue" href="<?= esc_url($see_button['link']) ?>"><?= esc_html($see_button['title']) ?></a>
             <?php endif; ?>
         </div>
     </div>
-    <div class="w-[calc(100%-6%)] mx-auto h-[1px] bg-[#DDDDDD] mt-[87px]"></div>
+    <div class="w-[calc(100%-6%)] mx-auto h-[1px] bg-[#DDDDDD] mt-10 lg:mt-[87px]"></div>
 </section>
 
 <style>

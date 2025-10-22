@@ -7,10 +7,10 @@ $recommend = $args['recommend'][0] ?? '';
 $recommend_background = $args['recommend_background'] ?? '';
 ?>
 
-<section class="py-[90px]">
+<section class=" py-10 lg:py-[90px]">
     <div class="container mx-auto">
-        <h2 class="text-h2 uppercase leading-h2 font-light font-archivo text-black max-w-[678px] mb-[79px]"><?= esc_html($title) ?></h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-[16px] gap-y-[32px]">
+        <h2 class="uppercase text-[32px] leading-[32px] md:text-[40px] md:leading-[40px] lg:text-h2 lg:leading-h2 font-light font-archivo text-black max-w-[678px] mb-5 lg:mb-[79px]"><?= esc_html($title) ?></h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-[30px] md:gap-x-[16px] md:gap-y-[32px]">
             <?php
             $formats_query = new WP_Query([
                 'post_type'      => 'participation',
@@ -33,11 +33,61 @@ $recommend_background = $args['recommend_background'] ?? '';
                     .text-cont li {
                         list-style-type: disc;
                     }
+                    @media(max-width: 768px) {
+                        .format-item:first-of-type {
+                            margin-bottom: 50px !important;
+                        }
+                    }
                 </style>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.body.addEventListener('click', function(e) {
+                        const btn = e.target.closest('.buy-ticket-btn');
+                        if (btn) {
+                            e.preventDefault();
+                            var valueToSelect = btn.getAttribute('data-format-slug');
+                            var formReg = document.querySelector('.form-reg');
+                            if (formReg) {
+                                var select = formReg.querySelector('select');
+                                if (select) {
+                                    var found = false;
+                                    for (var i = 0; i < select.options.length; i++) {
+                                        var opt = select.options[i];
+                                        if (opt.value === valueToSelect) {
+                                            select.selectedIndex = i;
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!found) {
+                                        for (var i = 0; i < select.options.length; i++) {
+                                            var opt = select.options[i];
+                                            if (opt.text.trim().toLowerCase() === valueToSelect.toLowerCase()) {
+                                                select.selectedIndex = i;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                                }
+                                formReg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            } else {
+                                if (btn.getAttribute('href') && btn.getAttribute('href').charAt(0) === '#') {
+                                    var targetId = btn.getAttribute('href').substring(1);
+                                    var targetElem = document.getElementById(targetId);
+                                    if (targetElem) {
+                                        targetElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+                </script>
                <?php while ($formats_query->have_posts()): $formats_query->the_post();
                     $format_id = get_the_ID();
                     $is_recommend = ($format_id == $recommend);
-                    $item_classes = 'format-item min-h-[699px] bg-[#F7F7F7] pb-[80px] relative flex flex-col justify-between';
+                    $item_classes = 'format-item min-h-[419px] lg:min-h-[699px] bg-[#F7F7F7] pb-[80px] relative flex flex-col justify-between';
                     if ($is_recommend) {
                         $item_classes .= ' recommend bg-dark-blue';
                     }
@@ -45,6 +95,7 @@ $recommend_background = $args['recommend_background'] ?? '';
                     if ($is_recommend) {
                         $item_style = 'background-image:url(\'' . esc_url($recommend_background) . '\');background-size:contain;background-position:bottom left; background-repeat:no-repeat;';
                     }
+                    $slug = get_post_field('post_name', get_the_ID());
                     ?>
                     <div class="<?= esc_attr($item_classes) ?>"<?= $item_style ? ' style="' . esc_attr($item_style) . '"' : '' ?>>
                         <div class="absolute bg-white w-[87px] h-[87px] rounded-full bottom-[-43px] left-1/2 -translate-x-1/2"></div>
@@ -60,16 +111,31 @@ $recommend_background = $args['recommend_background'] ?? '';
                             <?php endif; ?>
                         </div>
 
-                        <div class="mt-auto px-[36px]">
-                            <div class="w-full h-[1px] mb-[30px] <?= $is_recommend ? 'bg-[rgba(255,255,255,0.1)]' : 'bg-[#e5e5e5]' ?>"></div>
+                        <div class="mt-auto px-[36px] flex flex-col justify-center items-center">
+                            <div class="w-full mt-5 lg:mt-0 h-[1px] mb-[30px] <?= $is_recommend ? 'bg-[rgba(255,255,255,0.1)]' : 'bg-[#e5e5e5]' ?>"></div>
+
                             <?php
-                            $slug = get_post_field('post_name', get_the_ID());
-                            $buy_ticket_href = '#' . esc_attr($slug);
                             ?>
+
                             <?php if (!$is_recommend): ?>
-                                <a class="bg-[linear-gradient(90deg,_#0065CA_0%,_#37B6FF_100%)] inline-block uppercase w-full text-center text-white font-archivo text-medium leading-medium px-[53px] py-[22px] transition" href="<?= $buy_ticket_href ?>">BUY TICKET</a>
+                                <a
+                                    class="buy-ticket-btn group relative flex justify-center items-center lg:inline-block w-full md:w-auto px-[53px] py-[22px] font-light uppercase text-medium leading-medium font-archivo text-white bg-gradient-to-r from-[#0065CA] to-[#37B6FF] transform transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl overflow-hidden"
+                                    href="#<?= esc_attr($slug) ?>"
+                                    data-format-slug="<?= esc_attr($slug) ?>"
+                                >BUY TICKET
+                                <span
+                                    aria-hidden="true"
+                                    class="absolute top-0 left-0 w-full h-full -translate-x-48 transform 
+                                        bg-gradient-to-r from-white/40 via-white/20 to-white/0
+                                        opacity-0 transition-all duration-800 ease-in-out
+                                        group-hover:translate-x-56 group-hover:opacity-100 pointer-events-none"></span>
+                                </a>
                             <?php else: ?>
-                                <a class="px-[37px] py-[22px] text-black bg-white font-archivo font-normal text-medium leading-medium transition duration-300 hover:bg-dark-blue hover:text-white inline-block w-full text-center" href="<?= $buy_ticket_href ?>">BUY TICKET</a>
+                                <a
+                                    class="buy-ticket-btn px-[37px] py-[22px] text-black bg-white font-archivo font-normal text-medium leading-medium transition duration-300 hover:bg-dark-blue hover:text-white flex justify-center items-center lg:inline-block w-full md:w-auto w-full text-center"
+                                    href="#<?= esc_attr($slug) ?>"
+                                    data-format-slug="<?= esc_attr($slug) ?>"
+                                >BUY TICKET</a>
                             <?php endif; ?>
                         </div>
                     </div>

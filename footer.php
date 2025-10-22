@@ -38,14 +38,14 @@
 						array(
 							'theme_location' => 'menu-1',
 							'menu_id'        => 'primary-menu',
-							'menu_class'     => 'flex footer-nav gap-4 text-white font-archivo font-normal text-base leading-base uppercase justify-center',
+							'menu_class'     => 'flex flex-col lg:flex-row items-center  footer-nav gap-4 text-white font-archivo font-normal text-base leading-base uppercase justify-center',
 							'fallback_cb'    => false,
 						)
 					);
 					?>
 				</nav>
 		</div>
-		<div class="w-full bg-[rgba(217,217,217,0.2)] h-[1px] my-[46px]"></div>
+		<div class="w-[calc(100%-30px)] mx-auto lg:w-full bg-[rgba(217,217,217,0.2)] h-[1px] my-[46px]"></div>
 		<?php if (!empty(get_field('contact_repeater', 'option')) && is_array(get_field('contact_repeater', 'option'))): ?>
                  <style>
                     .info-text {
@@ -59,7 +59,7 @@
 						color: rgba(255,255,255,0.7);
 					}
                 </style>
-                <div class="flex justify-center gap-6">
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-6">
                     <?php foreach (get_field('contact_repeater', 'option') as $item): ?>
                         <div class="flex items-center gap-[10px] group">
                             <?php if (!empty($item['icon'])): ?>

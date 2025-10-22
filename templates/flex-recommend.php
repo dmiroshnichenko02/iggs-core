@@ -12,15 +12,15 @@ $background_image = $args['background_image'] ?? '';
 $mask_image = $args['mask_image'] ?? '';
 ?>
 
-<section class="pt-[90px]">
+<section id="exhibit" class="pt-10 lg:pt-[90px]">
     <div class="container mx-auto">
-        <h2 class="text-h2 uppercase leading-h2 font-light font-archivo text-black max-w-[678px] mb-[217px]"><?= esc_html($title) ?></h2>
+        <h2 class="uppercase text-[32px] leading-[32px] md:text-[40px] md:leading-[40px] lg:text-h2 lg:leading-h2 font-light font-archivo text-black max-w-[678px] mb-[100px] lg:mb-[217px]"><?= esc_html($title) ?></h2>
     </div>
 
-    <div class="relative min-h-[1383px] pt-[529px] pb=[66px]" style="background-image:url('<?= esc_url($background_image) ?>');background-size:cover;background-position:center;">
+    <div class="relative min-h-auto lg:min-h-[1383px] pt-[200px] lg:pt-[529px] pb-[66px]" style="background-image:url('<?= esc_url($background_image) ?>');background-size:cover;background-position:center;">
         <?php if (is_array($images) && count($images) > 0): ?>
-            <div class="absolute left-0 top-[-178px] w-full z-10">
-                <div class="pl-[calc((100%-1296px)/2)]">
+            <div class="absolute left-0 top-[-70px] lg:top-[-178px] w-full z-10">
+                <div class="pl-[15px]  md:pl-[25px] lg:pl-[calc((100%-1024px)/2)] xl:pl-[calc((100%-1296px)/2)]">
                     <div class="swiper recommend-swiper">
                         <div class="swiper-wrapper">
                             <?php foreach ($images as $img):
@@ -28,7 +28,7 @@ $mask_image = $args['mask_image'] ?? '';
                             ?>
                                 <?php if ($src): ?>
                                     <div class="swiper-slide">
-                                        <img src="<?= esc_url($src) ?>" alt="Recommend image" class="object-cover h-[564px] w-full" style="max-width:unset;"/>
+                                        <img src="<?= esc_url($src) ?>" alt="Recommend image" class="object-cover h-[240px] md:h-[300px] lg:h-[564px] w-full" style="max-width:unset;"/>
                                     </div>
                                 <?php endif; ?>
                             <?php endforeach; ?>
@@ -73,7 +73,7 @@ $mask_image = $args['mask_image'] ?? '';
                         prevEl: '.recommend-swiper-button-prev',
                     },
                     breakpoints: {
-                        320: { slidesPerView: 1 },
+                        320: { slidesPerView: 1.5 },
                         900: { slidesPerView: 2 }
                     }
                 });
@@ -81,7 +81,7 @@ $mask_image = $args['mask_image'] ?? '';
             </script>
         <?php endif; ?>
         <div class="container mx-auto">
-            <h3 class="text-h4 uppercase leading-h4 font-light font-archivo text-white mb-[37px]"><?= esc_html($subtitle) ?></h3>
+            <h3 class="text-[32px] lg:text-h4 uppercase leading-[32px] lg:leading-h4 font-light font-archivo text-white mb-[37px]"><?= esc_html($subtitle) ?></h3>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-[38px] gap-y-[32px]">
                 <?php if (is_array($text_content) && count($text_content) > 0): ?>
                     <style>
@@ -131,7 +131,7 @@ $mask_image = $args['mask_image'] ?? '';
                         $text = $feature['text'] ?? '';
                         if (empty($icon) && empty($text)) continue;
                     ?>
-                        <div class="flex items-center gap-[54px] bg-[rgba(255,255,255,0.05)] px-10 py-[28px]">
+                        <div class="flex flex-col md:flex-row md:items-center gap-5 md:gap-[54px] bg-[rgba(255,255,255,0.05)] px-5 mdLpx-10 py-[28px]">
                             <?php if ($icon): ?>
                                 <img src="<?= esc_url($icon); ?>" alt="icon" class="w-[64px] h-[64px] object-contain flex-shrink-0" />
                             <?php endif; ?>
@@ -142,7 +142,7 @@ $mask_image = $args['mask_image'] ?? '';
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            <a href="<?php echo esc_url($reg_button['link']); ?>" class="px-[37px] py-4 text-black bg-white font-archivo font-normal text-label leading-label transition duration-300 hover:bg-dark-blue hover:text-white"><?php echo $reg_button['title']; ?></a>
+            <a href="#form-reg" class="px-[37px] py-4 text-black bg-white flex justify-center items-center lg:inline-block w-full md:w-auto font-archivo font-normal text-label leading-label transition duration-300 hover:bg-dark-blue hover:text-white"><?php echo $reg_button['title']; ?></a>
         </div>
     </div>
 </section>

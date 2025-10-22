@@ -6,15 +6,14 @@ $video = $args['video'] ?? '';
 $preview = $args['preview'] ?? '';
 ?>
 
-<section class="relative w-full h-[701px] flex-video-section-js bg-black overflow-hidden">
+<section class="relative w-full h-[274px] md:h-[500px] lg:h-[701px] flex-video-section-js bg-black overflow-hidden">
     <div class="relative w-full h-full">
         <?php if ($video): ?>
             <div class="absolute inset-0 w-full h-full pointer-events-none">
                 <iframe 
                     src="<?php echo esc_url($video); ?>?background=1"
-                    width="100%" height="100%"
-                    class="w-full h-full object-cover pointer-events-auto video-iframe-js"
-                    style="display: block; aspect-ratio: unset; background: #000; min-width: 100vw; min-height: 100vh; width: 100vw; height: 100vh; position: absolute; inset: 0;"
+                    class="w-full h-[274px] md:h-[500px] lg:h-[701px] object-cover pointer-events-auto video-iframe-js"
+                    style="display: block; aspect-ratio: unset; background: #000; position: absolute; inset: 0;"
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen
@@ -53,7 +52,10 @@ $preview = $args['preview'] ?? '';
                     class="absolute inset-0 w-full h-full z-20 cursor-pointer group transition-all preview-layer-js"
                     style="background: #000;"
                 >
-                    <img src="<?= esc_url($preview); ?>" alt="Video preview" class="object-cover w-full h-full select-none pointer-events-none block" draggable="false" style="width:100vw;height:100vh;object-fit:cover;" />
+                    <img src="<?= esc_url($preview); ?>" alt="Video preview"
+                         class="object-cover w-full h-[274px] md:h-[500px] lg:h-[701px] select-none pointer-events-none block"
+                         draggable="false"
+                         style="object-fit:cover;" />
                     <button
                         type="button"
                         class="absolute left-[24px] bottom-[20px] w-[64px] h-[64px] bg-dark-blue-70 flex items-center justify-center rounded-full shadow-lg transition-opacity group-hover:opacity-90 play-start-btn-js"
@@ -98,6 +100,38 @@ $preview = $args['preview'] ?? '';
         var progressBar = section.querySelector('.video-progress-bar-js .bar-inner-js');
         var isPlaying = false;
         var previewHidden = false;
+
+        function setMediaSizes() {
+            // Set the correct height for the iframe/img based on Tailwind media breakpoints
+            var windowWidth = window.innerWidth;
+            var height = 274;
+            if (windowWidth >= 1024) { // lg
+                height = 701;
+            } else if (windowWidth >= 768) { // md
+                height = 500;
+            }
+            if (iframe) {
+                iframe.style.height = height + 'px';
+                iframe.style.width = '100%';
+                iframe.style.objectFit = 'cover';
+                iframe.style.background = '#000';
+                iframe.style.position = 'absolute';
+                iframe.style.left = '0';
+                iframe.style.top = '0';
+            }
+            if (previewLayer) {
+                var img = previewLayer.querySelector('img');
+                if (img) {
+                    img.style.height = height + 'px';
+                    img.style.width = '100%';
+                    img.style.objectFit = 'cover';
+                    img.style.display = 'block';
+                }
+            }
+        }
+
+        setMediaSizes();
+        window.addEventListener('resize', setMediaSizes);
 
         function postVimeoCommand(method, value) {
             if (!iframe) return;
@@ -159,23 +193,7 @@ $preview = $args['preview'] ?? '';
         }
 
         if (previewLayer && iframe && playStartBtn && playPauseBtn && playPauseIcons.length === 2) {
-            iframe.style.width = '100vw';
-            iframe.style.height = '100vh';
-            iframe.style.objectFit = 'cover';
-            iframe.style.background = '#000';
-            iframe.style.position = 'absolute';
-            iframe.style.left = '0';
-            iframe.style.top = '0';
-
             previewLayer.style.background = '#000';
-
-            var img = previewLayer.querySelector('img');
-            if (img) {
-                img.style.width = '100vw';
-                img.style.height = '100vh';
-                img.style.objectFit = 'cover';
-                img.style.display = 'block';
-            }
 
             function showPlayIcon() {
                 playPauseIcons[0].style.display = 'inline';

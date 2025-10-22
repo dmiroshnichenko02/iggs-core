@@ -62,3 +62,26 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 body {
 	background: #fff;
 }
+
+html {
+	overflow-x: hidden !important;
+}
+
+/* Mobile menu styles */
+#mobileMenu {
+	transition-property: transform;
+}
+
+body.overflow-hidden {
+	overflow: hidden;
+}
+
+#burgerBtn {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+#burgerBtn svg { 
+	display: block; 
+}

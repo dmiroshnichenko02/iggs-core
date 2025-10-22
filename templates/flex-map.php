@@ -5,7 +5,7 @@
 $google_map_link = $args['google_map_link'] ?? 'Europa Tower, Konstitucijos Street. 7A, Vilnius, Lithuania.';
 ?>
 
-<section id="map" class="w-full h-[600px]">
+<section id="location" class="w-full h-[392px] lg:h-[600px]">
   <iframe
     width="100%"
     height="100%"
